@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Контакти</h1>
+
+{% if submitted %}
+  <div class="alert alert-success">Дякуємо, {{ name or 'користувачу' }}! Повідомлення прийнято (заглушка).</div>
+{% endif %}
+
+<form method="post" class="row g-3">
+  <div class="col-md-6">
+    <label for="name" class="form-label">Ім'я</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+  <div class="col-md-6">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <div class="col-12">
+    <label for="message" class="form-label">Повідомлення</label>
+    <textarea class="form-control" id="message" name="message" rows="5"></textarea>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Відправити</button>
+  </div>
+</form>
+{% endblock %}

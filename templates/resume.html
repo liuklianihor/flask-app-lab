@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<article>
+  <header class="d-flex align-items-center mb-4">
+    <img src="{{ url_for('static', filename='images/photo.jpg') }}" alt="Мій університет" class="rounded-circle me-3" width="120" height="120">
+    <div>
+      <h1>Ігор Люклян</h1>
+      <p class="lead">Бекенд розробник, навчаюсь в університеті</p>
+    </div>
+  </header>
+
+  <section id="about" class="mb-4">
+    <h2>Про себе</h2>
+    <p>Навчаюсь на 3 курсі спеціальності 121 "Інженерія програмного забезпечення". <br> 
+      Проходжу додаткові курси по Java Back-End, планую працювати за цією ж спеціальністю.</p>
+  </section>
+
+  <section id="education" class="mb-4">
+    <h2>Освіта</h2>
+    <ul>
+      <li>Карпатський національний університет імені Василя Стефаника — Бакалавр (2023–2027)</li>
+    </ul>
+  </section>
+
+  <section id="skills" class="mb-4">
+    <h2>Навички</h2>
+    <p>Комунікація, робота в команді, тестування.</p>
+  </section>
+
+  <section id="tech" class="mb-4">
+    <h2>Технології</h2>
+    <p>Python, Flask, HTML, CSS, JavaScript, Git, SQL, Java, C++</p>
+  </section>
+
+  <section id="projects" class="mb-4">
+    <h2>Досвід / Проекти</h2>
+    <article>
+      <h4>Генератор портфоліо</h4>
+      <p>Сайт із генерацією портфоліо (Personal Portfolio Builder) із використанням технологій Angular</p>
+      <h4>База даних школи</h4>
+      <p>Програмне забезпечення на мові Java, яка надає зручний інтерфейс для керування MySQL базою даних</p>
+    </article>
+  </section>
+</article>
+{% endblock %}
