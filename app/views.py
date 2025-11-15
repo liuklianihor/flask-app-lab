@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for # type: ignore
-app = Flask(__name__)
+from . import app
 
 @app.route('/')
 def index():
@@ -17,6 +17,3 @@ def contacts():
         name = request.form.get('name')
         submitted = True
     return render_template('contacts.html', title='Контакти', submitted=submitted, name=name)
-
-if __name__ == '__main__':
-    app.run(debug=True)
