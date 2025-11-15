@@ -6,3 +6,6 @@ app = Flask(__name__)
 
 
 from . import views
+
+from .users.views import post_bp
+app.register_blueprint(post_bp, url_prefix='/users')
