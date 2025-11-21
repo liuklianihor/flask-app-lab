@@ -1,30 +1,55 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, make_response
+from ..forms import LoginForm
 
 auth_bp = Blueprint('auth', __name__, template_folder='templates')
 
 VALID_USERNAME = "user1"
 VALID_PASSWORD = "secret"
 
+#@auth_bp.route('/login', methods=['GET','POST'])
+#def login():
+#    if session.get('user'):
+#        flash("Ви вже увійшли.", "info")
+#        return redirect(url_for('auth.profile'))
+#    if request.method == 'POST':
+#        username = request.form.get('username', '').strip()
+#        password = request.form.get('password', '')
+#        if username == VALID_USERNAME and password == VALID_PASSWORD:
+#            session['user'] = username
+#            flash("Успішний вхід.", "success")
+#            return redirect(url_for('auth.profile'))
+#        else:
+#            flash("Невірні дані.", "danger")
+#            return redirect(url_for('auth.login'))
+#    return render_template('auth/login.html')
+
 @auth_bp.route('/login', methods=['GET','POST'])
 def login():
     if session.get('user'):
         flash("Ви вже увійшли.", "info")
         return redirect(url_for('auth.profile'))
-    if request.method == 'POST':
-        username = request.form.get('username', '').strip()
-        password = request.form.get('password', '')
+
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = form.username.data.strip()
+        password = form.password.data
+        remember = form.remember.data
+
         if username == VALID_USERNAME and password == VALID_PASSWORD:
             session['user'] = username
-            flash("Успішний вхід.", "success")
+            session.permanent = True if remember else False
+            flash(f"Успішний вхід. Запам'ятати: {'так' if remember else 'ні'}", "success")
             return redirect(url_for('auth.profile'))
         else:
             flash("Невірні дані.", "danger")
             return redirect(url_for('auth.login'))
-    return render_template('auth/login.html')
+
+    return render_template('auth/login.html', form=form)
 
 @auth_bp.route('/logout')
 def logout():
     session.pop('user', None)
+    session.permanent = False
     flash("Ви вийшли.", "info")
     return redirect(url_for('auth.login'))
 

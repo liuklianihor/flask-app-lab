@@ -1,10 +1,11 @@
 from flask import Flask
-
+from datetime import timedelta 
 
 app = Flask(__name__)
 app.secret_key = "my-secret-key"
 # app.config.from_pyfile("../config.py")
 
+app.permanent_session_lifetime = timedelta(seconds=30)
 
 from . import views
 

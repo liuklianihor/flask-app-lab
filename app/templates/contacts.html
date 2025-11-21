@@ -1,23 +1,24 @@
 {% extends "base.html" %}
+{% from 'macros.html' import render_field %}
 {% block content %}
 <h1>Контакти</h1>
 
-{% if submitted %}
-  <div class="alert alert-success">Дякуємо, {{ name or 'користувачу' }}! Повідомлення прийнято (заглушка).</div>
-{% endif %}
-
-<form method="post" class="row g-3">
+<form method="post" class="row g-3" novalidate>
+  {{ form.csrf_token }}
   <div class="col-md-6">
-    <label for="name" class="form-label">Ім'я</label>
-    <input type="text" class="form-control" id="name" name="name" required>
+    {{ render_field(form.name) }}
   </div>
   <div class="col-md-6">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email" name="email" required>
+    {{ render_field(form.email) }}
+  </div>
+  <div class="col-md-6">
+    {{ render_field(form.phone) }}
+  </div>
+  <div class="col-md-6">
+    {{ render_field(form.subject) }}
   </div>
   <div class="col-12">
-    <label for="message" class="form-label">Повідомлення</label>
-    <textarea class="form-control" id="message" name="message" rows="5"></textarea>
+    {{ render_field(form.message) }}
   </div>
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Відправити</button>
