@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block css %}<link rel="stylesheet" href="{{ url_for('posts.static', filename='css/posts.css') }}">{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h2>Всі posts</h2>
+    <a class="btn btn-success" href="{{ url_for('posts.create_post') }}">Додати Post</a>
+  </div>
+  <div class="row mt-3">
+    {% for post in posts %}
+      <div class="col-md-6 mb-3">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.category }} • {{ post.posted.strftime('%Y-%m-%d %H:%M') }}</h6>
+            <p class="card-text">{{ post.content[:150] }}{% if post.content|length > 150 %}...{% endif %}</p>
+            <a href="{{ url_for('posts.view_post', id=post.id) }}" class="btn btn-primary">Переглянути</a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <p>Ще немає ні одного post</p>
+    {% endfor %}
+  </div>
+{% endblock %}

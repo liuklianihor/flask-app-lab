@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect, flash, current_app
-from . import app
+from flask import Flask, render_template, request, url_for, redirect, flash, current_app, Blueprint
 from .forms import ContactForm
 import logging
 import os
@@ -12,24 +11,17 @@ logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(message)s'
 )
 
-@app.route('/')
+main = Blueprint("main", __name__)
+
+@main.route('/')
 def index():
     return render_template('resume.html', title='Резюме')
 
-@app.route('/resume')
+@main.route('/resume')
 def resume():
     return render_template('resume.html', title='Резюме')
 
-#@app.route('/contacts', methods=['GET', 'POST'])
-#def contacts():
-#    submitted = False
-#    name = None
-#    if request.method == 'POST':
-#        name = request.form.get('name')
-#        submitted = True
-#    return render_template('contacts.html', title='Контакти', submitted=submitted, name=name)
-
-@app.route('/contacts', methods=['GET', 'POST'])
+@main.route('/contacts', methods=['GET', 'POST'])
 def contacts():
     form = ContactForm()
     if form.validate_on_submit():
