@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-12 col-md-8">
     <h2>Профіль</h2>
-    <p>Вітаю, <strong>{{ user }}</strong>!</p>
+    <p>Вітаю, <strong>{{ user.username }}</strong>!</p>
 
     <div class="mb-3">
       <a class="btn btn-outline-secondary" href="{{ url_for('auth.logout') }}">Вийти</a>

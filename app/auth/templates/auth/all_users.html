@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Всі користувачі в БД ({{ count }}):</h2>
+  {% if users %}
+    <ul>
+    {% for u in users %}
+      <li>{{ u.username }} — {{ u.email }}</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Користувач не зарєстрований</p>
+  {% endif %}
+  <div class="mb-3">
+      <a class="btn btn-outline-secondary" href="{{ url_for('auth.account') }}">Повернення</a>
+    </div>
+{% endblock %}

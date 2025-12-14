@@ -7,6 +7,8 @@ from .config import config_map
 from sqlalchemy.orm import DeclarativeBase
 import os
 from sqlalchemy import MetaData
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -22,6 +24,10 @@ class Base(DeclarativeBase):
 
 db = SQLAlchemy(model_class=Base)
 migrate = Migrate()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = "auth.login"
+login_manager.login_message = "Будь ласка, увійдіть."
 
 def create_app(config_name: str = os.environ.get("FLASK_CONFIG", "dev")) -> Flask:
     app = Flask(__name__)
@@ -35,6 +41,8 @@ def create_app(config_name: str = os.environ.get("FLASK_CONFIG", "dev")) -> Flas
 
     db.init_app(app)
     migrate.init_app(app, db)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
 
     with app.app_context(): 
         from .users import models
@@ -63,5 +71,14 @@ def create_app(config_name: str = os.environ.get("FLASK_CONFIG", "dev")) -> Flas
     @app.errorhandler(404)
     def not_found(e):
         return render_template('404.html'), 404
+    
+    from app.users.models import User
+
+    @login_manager.user_loader
+    def load_user(user_id: str):
+        try:
+            return db.session.get(User, int(user_id))
+        except Exception:
+            return None
      
     return app

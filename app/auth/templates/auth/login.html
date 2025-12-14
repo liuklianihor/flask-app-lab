@@ -12,6 +12,7 @@
       {{ form.csrf_token }}
       {{ render_field(form.username) }}
       {{ render_field(form.password) }}
+
       <div class="mb-3 form-check">
         {{ form.remember(class="form-check-input", id=form.remember.id) }}
         <label class="form-check-label" for="{{ form.remember.id }}">{{ form.remember.label.text }}</label>
@@ -20,6 +21,7 @@
       <div class="d-flex gap-2">
         <button type="submit" class="btn btn-primary">Увійти</button>
         <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary">На головну</a>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-outline-success">Реєстрація</a>
       </div>
     </form>
 
