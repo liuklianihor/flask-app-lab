@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField
+from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, Optional
 from wtforms.fields import DateTimeLocalField
 
@@ -13,4 +13,7 @@ class PostForm(FlaskForm):
         choices=[("news", "News"), ("publication", "Publication"), ("tech", "Tech"), ("other", "Other")],
         validators=[DataRequired()]
     )
+    author_id = SelectField("Автор", coerce=int)
+    tags = SelectMultipleField("Теги", coerce=int)
+
     submit = SubmitField("Save")

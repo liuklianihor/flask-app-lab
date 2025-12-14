@@ -8,6 +8,8 @@
     {{ macros.render_field(form.content) }}
     {{ macros.render_field(form.category) }}
     {{ macros.render_field(form.publish_date) }}
+    {{ macros.render_field(form.author_id) }}
+    {{ macros.render_field(form.tags) }}
     <div class="form-group mt-3">
       {{ form.submit(class="btn btn-primary") }}
       <a href="{{ url_for('posts.list_posts') }}" class="btn btn-secondary">Скасувати</a>

@@ -37,7 +37,8 @@ def create_app(config_name: str = os.environ.get("FLASK_CONFIG", "dev")) -> Flas
     migrate.init_app(app, db)
 
     with app.app_context(): 
-        from .products import models
+        from .users import models
+        from .posts import models
 
         from .views import main as main_blueprint
         app.register_blueprint(main_blueprint, url_prefix='/main')
